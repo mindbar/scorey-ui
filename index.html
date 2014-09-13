@@ -17,6 +17,8 @@
     <!-- Custom styles for this template -->
     <link href="css/style.css" rel="stylesheet">
 
+    <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="js/collapse.js"></script>
 
 </head>
 
@@ -39,25 +41,74 @@
             <div class="form-group">
                 <div class="input-group">
 
-                    <input class="form-control input-lg" type="text" placeholder="">
-                    <span class="glyphicon glyphicon-search input-group-addon" />
+
+                    <input class="form-control input-lg" type="text" placeholder="" id="search" />
+
+                    <span class="glyphicon glyphicon-search input-group-addon btn-success" id="submit" style="cursor: hand"/>
+
+                    <div id="results"></div>
+
+                    <script type="text/javascript">
+                        $(document).ready(function () {
+                            $('#submit').click(function (e) {
+                                e.preventDefault();
+                                var name = $('#search').val();
+                                name=name.replace(new RegExp(" ", 'g'), "%20");
+                                $.get("index.html", function( data ) {
+                                    var temp_json = {"scores":{"Display":6.1,"Price":9.2,"Battery":7.3,"Performance":8.0},"bestCategory":"pos"};
+                                    var container = document.getElementById("result-table");
+                                    // progress-striped active
+                                    var placeholder_html = '<tr><td>2.</td><td>Clean database</td><td><div class="progress xs"><div class="progress-bar progress-bar-yellow" style="width: 70%"></div></div></td><td><span class="badge bg-yellow">70%</span></td></tr>';
+                                    container.innerHTML += placeholder_html;
+
+                                });
+                            });
+                        });
+                    </script>
                 </div>
             </div>
 
+
+
         </form>
+    </div>
+
+    <div class="row">
+
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Metric</h3>
+            </div><!-- /.box-header -->
+            <div class="box-body no-padding">
+                <table id="result-table" class="table table-striped">
+                    <tr>
+                        <th style="width: 10px">#</th>
+                        <th>Article link</th>
+                        <th>Score</th>
+                        <th style="width: 40px">&nbsp;</th>
+                    </tr>
+
+                    <tr>
+                        <td>2.</td>
+                        <td>Clean database</td>
+                        <td>
+                            <div class="progress xs">
+                                <div class="progress-bar progress-bar-yellow" style="width: 70%"></div>
+                            </div>
+                        </td>
+                        <td><span class="badge bg-yellow">70%</span></td>
+                    </tr>
+
+                </table>
+            </div><!-- /.box-body -->
+        </div><!-- /.box -->
+
 
 
     </div>
 
-    <!-- Example row of columns -->
-
-    <!-- Site footer -->
-
-
 </div> <!-- /container -->
 
 
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
 </body>
 </html>
