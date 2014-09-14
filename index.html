@@ -50,17 +50,34 @@
 
                     <script type="text/javascript">
                         $(document).ready(function () {
+                            //$('#result-div').hide();
+
                             $('#submit').click(function (e) {
                                 e.preventDefault();
                                 var name = $('#search').val();
                                 name=name.replace(new RegExp(" ", 'g'), "%20");
                                 $.get("index.html", function( data ) {
+
+                                    var data_json = JSON.parse(data);
+                                    var count = Object.keys(data_json).length
+                                    for(var i=0; i<count; i++){
+                                        var resultObj = data_json[i];
+                                        var placeholder_html = '<tr><td>'+(i+1)+'</td><td><a href="#">TechCrunch</a></td><td>'+resultObj.Display+
+                                                '/10</td><td>'+resultObj.Battery+
+                                                '/10</td><td>'+resultObj.Performance+
+                                                '/10</td><td>'+resultObj.Scorey+
+                                                '/10</td></tr>';
+                                        container.innerHTML += placeholder_html;
+                                    }
+
                                     var temp_json = {"scores":{"Display":6.1,"Price":9.2,"Battery":7.3,"Performance":8.0},"bestCategory":"pos"};
                                     var container = document.getElementById("result-table");
                                     // progress-striped active
-                                    var placeholder_html = '<tr><td>2.</td><td>Clean database</td><td><div class="progress xs"><div class="progress-bar progress-bar-yellow" style="width: 70%"></div></div></td><td><span class="badge bg-yellow">70%</span></td></tr>';
+
+                                    var placeholder_html = '<tr><td>1</td><td><a href="#">TechCrunch</a></td><td>9/10</td><td>9/10</td><td>9/10</td><td>9/10</td></tr>';
                                     container.innerHTML += placeholder_html;
 
+                                    $('#result-div').show();
                                 });
                             });
                         });
@@ -73,38 +90,79 @@
         </form>
     </div>
 
-    <div class="row">
-
-        <div class="box">
-            <div class="box-header">
-                <h3 class="box-title">Metric</h3>
-            </div><!-- /.box-header -->
-            <div class="box-body no-padding">
-                <table id="result-table" class="table table-striped">
-                    <tr>
-                        <th style="width: 10px">#</th>
-                        <th>Article link</th>
-                        <th>Score</th>
-                        <th style="width: 40px">&nbsp;</th>
-                    </tr>
-
-                    <tr>
-                        <td>2.</td>
-                        <td>Clean database</td>
-                        <td>
-                            <div class="progress xs">
-                                <div class="progress-bar progress-bar-yellow" style="width: 70%"></div>
+    <div class="row" id="result-div">
+        <h3 class="box-title">Results</h3>
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseDisplay">
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-success" style="width: 80%;font-size: 20px;padding-top: 5px">
+                                    Display - 8/10
+                                </div>
                             </div>
-                        </td>
-                        <td><span class="badge bg-yellow">70%</span></td>
-                    </tr>
-
-                </table>
-            </div><!-- /.box-body -->
-        </div><!-- /.box -->
-
-
-
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseDisplay" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <table class="table table-striped" id="table-display">
+                            <tr><th>Article</th><th>Score</th></tr>
+                            <tr><td><a href="#">TechCrunch</a></td><td>7/10</td></tr>
+                            <tr><td><a href="#">CNet</a></td><td>5/10</td></tr>
+                            <tr><td><a href="#">MacRumors</a></td><td>8/10</td></tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseBattery">
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-warning" style="width: 50%;font-size: 20px;padding-top: 5px">
+                                    Battery - 5/10
+                                </div>
+                            </div>
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseBattery" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <table class="table table-striped" id="table-battery">
+                            <tr><th>Article</th><th>Score</th></tr>
+                            <tr><td><a href="#">TechCrunch</a></td><td>7/10</td></tr>
+                            <tr><td><a href="#">CNet</a></td><td>5/10</td></tr>
+                            <tr><td><a href="#">MacRumors</a></td><td>8/10</td></tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapsePerfarmance">
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-danger" style="width: 30%;font-size: 20px;padding-top: 5px">
+                                    Performance - 3/10
+                                </div>
+                            </div>
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapsePerfarmance" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <table class="table table-striped" id="table-performance">
+                            <tr><th>Article</th><th>Score</th></tr>
+                            <tr><td><a href="#">TechCrunch</a></td><td>7/10</td></tr>
+                            <tr><td><a href="#">CNet</a></td><td>5/10</td></tr>
+                            <tr><td><a href="#">MacRumors</a></td><td>8/10</td></tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 </div> <!-- /container -->
