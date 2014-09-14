@@ -32,18 +32,14 @@
 
     <!-- Jumbotron -->
     <div class="jumbotron">
-        <h1 id="logo-text" class="logo" onclick="$('#logo-big').show();$('#logo-text').hide();">#Scorey</h1>
+        <h1 id="logo-text" class="logo" onclick="$('#logo-big').show();$('#logo-text').hide();">#scorey</h1>
         <img id="logo-big" src="logo-big.png" width="600px" />
         <img id="logo-small" src="logo.png" />
 
             <div class="form-group">
                 <div class="input-group">
-
-
-                    <input class="form-control input-lg" type="text" placeholder="" id="search" />
-
-                    <span class="glyphicon glyphicon-search input-group-addon" id="submit" style="cursor: hand"/>
-
+                    <input class="form-control input-lg" type="search" placeholder="" id="search" />
+                    <span class="input-group-addon" id="submit"><span class="glyphicon glyphicon-search"></span></span>
                 </div>
             </div>
 
@@ -130,6 +126,8 @@
         $('#logo-small').hide();
         $('#logo-big').hide();
 
+        document.getElementById("search").focus();
+
         $('#submit').click(function (e) {
             $('#logo-big').hide();
             $('#logo-text').hide();
@@ -138,9 +136,9 @@
             e.preventDefault();
             var name = $('#search').val();
             name=name.replace(new RegExp(" ", 'g'), "%20");
-            $.get("index.html", function( data ) {
-                //var temp_json = {"scores":{"Display":"3.50","Battery":"5.45","Performance":"4.50"},"articles":[{"url":"http://techcrunch.com/2013/09/17/iphone-5s-review-apple/","title":"iPhone 5s Review: Apple’s Latest Smartphone Goes For (And Gets) The Gold","articleScores":{"BATTERY":5.0,"DISPLAY":0.0,"PERFORMANCE":10.0}},{"url":"http://www.theguardian.com/technology/2013/sep/11/iphone-5s-review-apple-smartphone","title":"iPhone 5S – first impressions","articleScores":{"BATTERY":10.0,"DISPLAY":5.0,"PERFORMANCE":5.0}},{"url":"http://www.cnet.com/products/apple-iphone-5s/","title":"Same look, small screen, big potential","articleScores":{"BATTERY":8.75,"DISPLAY":5.0,"PERFORMANCE":5.0}},{"url":"http://www.ign.com/articles/2013/10/03/apple-iphone-5s-review","title":"APPLE IPHONE 5S REVIEW","articleScores":{"BATTERY":0.0,"DISPLAY":5.0,"PERFORMANCE":5.0}},{"url":"http://www.dailymail.co.uk/sciencetech/article-2205040/iPhone-5-review-Simply-best-smartphone-made.html","title":"'Bright, responsive and it just feels right': MailOnline's verdict on the iPhone 5 - simply the best smartphone ever made","articleScores":{"BATTERY":5.0,"DISPLAY":5.0,"PERFORMANCE":5.0}},{"url":"http://www.laptopmag.com/reviews/smartphones/apple-iphone5","title":"Apple iPhone 5 (Verizon Wireless) Review","articleScores":{"BATTERY":5.714285714285714,"DISPLAY":0.0,"PERFORMANCE":5.0}},{"url":"http://www.theverge.com/2012/9/21/3363238/iphone-5-review","title":"iPhone 5 review","articleScores":{"BATTERY":0.0,"DISPLAY":0.0,"PERFORMANCE":0.0}},{"url":"http://www.engadget.com/2013/09/17/iphone-5s-review/","title":"iPhone 5s review","articleScores":{"BATTERY":5.0,"DISPLAY":5.0,"PERFORMANCE":0.0}},{"url":"http://www.pocket-lint.com/review/123702-apple-iphone-5c-review","title":"Apple iPhone 5C review","articleScores":{"BATTERY":10.0,"DISPLAY":5.0,"PERFORMANCE":5.0}},{"url":"http://www.trustedreviews.com/apple-iphone-5_Mobile-Phone_review","title":"iPhone 5 review","articleScores":{"BATTERY":5.0,"DISPLAY":5.0,"PERFORMANCE":5.0}}],"bestCategory":null};
-                var data_json = {"scores":{"Display":"3.50","Battery":"2.45","Performance":"4.50"},"articles":[{"url":"http://techcrunch.com/2013/09/17/iphone-5s-review-apple/","title":"iPhone 5s Review: Apple’s Latest Smartphone Goes For (And Gets) The Gold","articleScores":{"BATTERY":5.0,"DISPLAY":0.0,"PERFORMANCE":10.0}},{"url":"http://www.theguardian.com/technology/2013/sep/11/iphone-5s-review-apple-smartphone","title":"iPhone 5S – first impressions","articleScores":{"BATTERY":10.0,"DISPLAY":5.0,"PERFORMANCE":5.0}},{"url":"http://www.cnet.com/products/apple-iphone-5s/","title":"Same look, small screen, big potential","articleScores":{"BATTERY":8.75,"DISPLAY":5.0,"PERFORMANCE":5.0}},{"url":"http://www.ign.com/articles/2013/10/03/apple-iphone-5s-review","title":"APPLE IPHONE 5S REVIEW","articleScores":{"BATTERY":0.0,"DISPLAY":5.0,"PERFORMANCE":5.0}},{"url":"http://www.dailymail.co.uk/sciencetech/article-2205040/iPhone-5-review-Simply-best-smartphone-made.html","title":"'Bright, responsive and it just feels right': MailOnline's verdict on the iPhone 5 - simply the best smartphone ever made","articleScores":{"BATTERY":5.0,"DISPLAY":5.0,"PERFORMANCE":5.0}},{"url":"http://www.laptopmag.com/reviews/smartphones/apple-iphone5","title":"Apple iPhone 5 (Verizon Wireless) Review","articleScores":{"BATTERY":5.714285714285714,"DISPLAY":0.0,"PERFORMANCE":5.0}},{"url":"http://www.theverge.com/2012/9/21/3363238/iphone-5-review","title":"iPhone 5 review","articleScores":{"BATTERY":0.0,"DISPLAY":0.0,"PERFORMANCE":0.0}},{"url":"http://www.engadget.com/2013/09/17/iphone-5s-review/","title":"iPhone 5s review","articleScores":{"BATTERY":5.0,"DISPLAY":5.0,"PERFORMANCE":0.0}},{"url":"http://www.pocket-lint.com/review/123702-apple-iphone-5c-review","title":"Apple iPhone 5C review","articleScores":{"BATTERY":10.0,"DISPLAY":5.0,"PERFORMANCE":5.0}},{"url":"http://www.trustedreviews.com/apple-iphone-5_Mobile-Phone_review","title":"iPhone 5 review","articleScores":{"BATTERY":5.0,"DISPLAY":5.0,"PERFORMANCE":5.0}}],"bestCategory":null};;//JSON.parse(data);
+            $.get("http://localhost:8080/json/search?q=" + name, function( data ) {
+                var data_json = // JSON.parse(data)
+                {"scores":{"Display":"3.50","Battery":"2.45","Performance":"4.50"},"articles":[{"url":"http://techcrunch.com/2013/09/17/iphone-5s-review-apple/","title":"iPhone 5s Review: Apple’s Latest Smartphone Goes For (And Gets) The Gold","articleScores":{"BATTERY":5.0,"DISPLAY":0.0,"PERFORMANCE":10.0}},{"url":"http://www.theguardian.com/technology/2013/sep/11/iphone-5s-review-apple-smartphone","title":"iPhone 5S – first impressions","articleScores":{"BATTERY":10.0,"DISPLAY":5.0,"PERFORMANCE":5.0}},{"url":"http://www.cnet.com/products/apple-iphone-5s/","title":"Same look, small screen, big potential","articleScores":{"BATTERY":8.75,"DISPLAY":5.0,"PERFORMANCE":5.0}},{"url":"http://www.ign.com/articles/2013/10/03/apple-iphone-5s-review","title":"APPLE IPHONE 5S REVIEW","articleScores":{"BATTERY":0.0,"DISPLAY":5.0,"PERFORMANCE":5.0}},{"url":"http://www.dailymail.co.uk/sciencetech/article-2205040/iPhone-5-review-Simply-best-smartphone-made.html","title":"'Bright, responsive and it just feels right': MailOnline's verdict on the iPhone 5 - simply the best smartphone ever made","articleScores":{"BATTERY":5.0,"DISPLAY":5.0,"PERFORMANCE":5.0}},{"url":"http://www.laptopmag.com/reviews/smartphones/apple-iphone5","title":"Apple iPhone 5 (Verizon Wireless) Review","articleScores":{"BATTERY":5.714285714285714,"DISPLAY":0.0,"PERFORMANCE":5.0}},{"url":"http://www.theverge.com/2012/9/21/3363238/iphone-5-review","title":"iPhone 5 review","articleScores":{"BATTERY":0.0,"DISPLAY":0.0,"PERFORMANCE":0.0}},{"url":"http://www.engadget.com/2013/09/17/iphone-5s-review/","title":"iPhone 5s review","articleScores":{"BATTERY":5.0,"DISPLAY":5.0,"PERFORMANCE":0.0}},{"url":"http://www.pocket-lint.com/review/123702-apple-iphone-5c-review","title":"Apple iPhone 5C review","articleScores":{"BATTERY":10.0,"DISPLAY":5.0,"PERFORMANCE":5.0}},{"url":"http://www.trustedreviews.com/apple-iphone-5_Mobile-Phone_review","title":"iPhone 5 review","articleScores":{"BATTERY":5.0,"DISPLAY":5.0,"PERFORMANCE":5.0}}],"bestCategory":null};;//JSON.parse(data);
 
                 // set progress bars
                 var pbBattery = document.getElementById('progress-battery');
@@ -154,7 +152,7 @@
                 var pbPerformance = document.getElementById('progress-performance');
                 pbPerformance.innerHTML = 'Performance: ' + data_json.scores.Performance;
                 pbPerformance.style.width = parseInt(data_json.scores.Performance*10)+'%';
-                
+
                 // fill article links
                 var count = Object.keys(data_json.articles).length
                 var container = document.getElementById('table-battery');
@@ -185,6 +183,8 @@
                 }
 
                 $('#result-div').show();
+            }).fail(function() {
+                alert( "error" );
             });
         });
     });
